@@ -29,13 +29,13 @@ android {
   compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
   buildToolsVersion getExtOrDefault('buildToolsVersion')
   defaultConfig {
-    minSdkVersion 16
+    minSdkVersion 21
     targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
     versionCode 1
     versionName "1.0"
-    
+
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
@@ -51,6 +51,7 @@ android {
 }
 
 repositories {
+  mavenLocal()
   mavenCentral()
   jcenter()
   google()
@@ -126,5 +127,11 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
+
+  implementation 'com.google.code.gson:gson:2.8.7'
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_version"
+
+  implementation "com.github.iurysza:vaccination-tracker:1.0.22"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
