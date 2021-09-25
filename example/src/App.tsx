@@ -1,31 +1,29 @@
 import * as React from 'react';
+import { Box, Heading, NativeBaseProvider } from 'native-base';
 
-import { StyleSheet, View, Text } from 'react-native';
-import Vaccinationtracker from 'react-native-vaccinationtracker';
+import Vaccinationtracker, {
+  VaccinationData,
+} from 'react-native-vaccinationtracker';
+import StateList from './StateList';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [vaccinationData, setVaccinationData] =
+    React.useState<VaccinationData[]>();
 
   React.useEffect(() => {
-    Vaccinationtracker.multiply(3, 7).then(setResult);
+    Vaccinationtracker.getVaccinationData(true).then((response) => {
+      setVaccinationData(response);
+    });
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <NativeBaseProvider>
+      <Box w={{ base: '100%', md: '25%' }}>
+        <Heading fontSize="xl" textAlign="center" p="4" pb="3">
+          Vacinômetro Brasil
+        </Heading>
+        {StateList(vaccinationData)}
+      </Box>
+    </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
